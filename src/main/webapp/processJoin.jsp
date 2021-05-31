@@ -1,13 +1,11 @@
-<%@ page contentType="text/html; charset=utf-8"%>
-<%@ page import="java.util.*"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" import="java.sql.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 
-
 <%
-	request.setCharacterEncoding("UTF-8");
-	String id = (String) session.getAttribute("id");
-	String pw = request.getParameter("pw");
+	String myid = request.getParameter("myid");
+	String mypw = request.getParameter("mypw");
 %>
 
 <sql:setDataSource var="dataSource"
@@ -15,15 +13,12 @@
 	driver="com.mysql.jdbc.Driver" user="root" password="1234" />
 
 <sql:update dataSource="${dataSource}" var="resultSet">
-   UPDATE MEMBER SET PW=? WHERE ID=?
-	<sql:param value="<%=pw%>" />
-	<sql:param value="<%=id%>" />
+   insert into member values(?,?,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+   	<sql:param value="<%=myid%>" />
+	<sql:param value="<%=mypw%>" />
 </sql:update>
 
 <c:if test="${resultSet>=1}">
-	<c:redirect url="result.jsp?msg=0" />
+	<c:redirect url="result.jsp?msg=1" />
 </c:if>
-
-
-	
 

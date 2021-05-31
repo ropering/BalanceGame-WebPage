@@ -1,147 +1,122 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8" import="java.sql.*"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" import="java.sql.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
-<html>
-   <head>
-      <meta charset="utf-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-      <meta name="description" content="" />
-      <meta name="author" content="" />
-      <!-- Favicon-->
-      <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-      <!-- Bootstrap Icons-->
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-      <!-- Google fonts-->
-      <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet" />
-      <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css" />
-      <!-- SimpleLightbox plugin CSS-->
-      <link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet" />
-      <!-- Core theme CSS (includes Bootstrap)-->
-      <link href="css/styles.css" rel="stylesheet" />
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-      <title>xxx 월드컵</title>
-   </head>
-
-<body id="page-top">
-   <!-- Navigation-->
-   <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
-   	  <!-- 세션에 값이 존재한다면 -->
-      <%
-      if(session.getAttribute("id")!=null) {
-      %>
-      <%= session.getAttribute("id") %><a class="navbar-brand" >님 안녕하세요</a>
-       <div class="container px-4 px-lg-5">
-          <!-- 로그인 상태 -->
-         <button type="button" onclick="location.href='updateMember.jsp'">회원 수정</button>
-         <a href=logout.jsp>로그아웃</a> <a href=game.jsp>게임시작</a>
-         <!-- 비 로그인 상태 -->
-         <%
-         } else {
-         %>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-              <div class="collapse navbar-collapse" id="navbarResponsive">
-                 <form action="loginaction.jsp" >
-                     <ul class="navbar-nav ms-auto my-2 my-lg-0">
-                        <!-- (비 로그인상태) 오른쪽 상단 카테고리 -->
-                         <li class="nav-item">ID : <input type="text" name="myid"/></li>
-                         <li class="nav-item">PW : <input type="password" name="mypw"/></li>
-                         <input type="submit" class="nav-item nav-link" value="로그인" />
-                         <li class="nav-item"><a class="nav-link" href="join.jsp">회원가입</a></li>
-                     </ul>
-                 </form>
-              </div>
-            <%
-         }
-         %>
-           
-       </div>
-   </nav>
-   
-   
-   
-   <!-- index.jsp에 접속하면 로그인한 아이디의 DB에 있는 gamecount값이 초기화됨 -->
-   
-   <%String id = (String) session.getAttribute("id");%>
-
-   <sql:setDataSource var="dataSource"
-      url="jdbc:mysql://localhost:3306/worldcup"
-      driver="com.mysql.jdbc.Driver" user="root" password="1234" />
-      
-   <sql:update dataSource="${dataSource}" var="resultSet">
-      UPDATE MEMBER SET GAMECOUNT=? WHERE ID=?;
-      <sql:param value="0" />
-      <sql:param value="<%=id%>" />
-      
-   </sql:update>
-   
-   
-   
-   
-   <!-- Masthead-->
-   <header class="masthead">
-<h1>이상형 월드컵</h1>
- 
-<table border=1>
-<tr>
-<td>번호</td>
-<td width=200>이름</td>
-<td width=120>전적</td>
-</tr>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Balance Game</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Abril+Fatface&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet" href="css/ionicons.min.css">
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="css/jquery.timepicker.css">
+    <link rel="stylesheet" href="css/flaticon.css">
+    <link rel="stylesheet" href="css/icomoon.css">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <div class="page">
+		<nav id="colorlib-main-nav" role="navigation">
+			<a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle active"><i></i></a>
+				<div class="js-fullheight colorlib-table">
+			 	   <div class="img" style="background-image: url(images/bg_2.jpg);"></div>
+				   		<div class="colorlib-table-cell js-fullheight">
+							  <div class="row no-gutters">
+								    <div class="col-md-12 text-center">
+									      	<ul>
+<!-- 로그인 상태 -->
 <%
-Connection conn = null;
-Statement stmt = null;
- 
-try {
-Class.forName("com.mysql.jdbc.Driver");
-conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/worldcup","root","1234");
-stmt = conn.createStatement();
-ResultSet rs = stmt.executeQuery("select num, name, win, lose from person order by num asc");
- 
-while(rs.next()) {
+  if (session.getAttribute("id") != null) {
 %>
-<tr>
-<td><img src=images/<%=rs.getInt("num")%>.jpg /></a></td>
-<td><%=rs.getString("name") %></a></td>
-<td><%=rs.getInt("win") %>승<%=rs.getInt("lose") %>패(%)</td>
-</tr>
-<%
-}
- 
-}catch(Exception e) {
-  System.out.println("오류 발생 " + e);
-}
- 
-%>
-</table>
-       <div class="container px-4 px-lg-5 h-100">
-           <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
-               <div class="col-lg-8 align-self-end">
-                   <h1 class="text-white font-weight-bold">xxx 월드컵</h1>
-                   <hr class="divider" />
-               </div>
-               <div class="col-lg-8 align-self-baseline">
-                   <p class="text-white-75 mb-5">건드여야 할 부분</p>
-                   <a class="btn btn-primary btn-xl" href="game.jsp">게임 시작</a>
-               </div>
-           </div>
-       </div>
-   </header>
-   
-   <!-- Footer-->
-   <footer class="bg-light py-5">
-       <div class="container px-4 px-lg-5"><div class="small text-center text-muted">Copyright &copy; 2021 - 임범수 김나경 전우민 오명균</div></div>
-   </footer>
-   <!-- Bootstrap core JS-->
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
-   <!-- SimpleLightbox plugin JS-->
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.js"></script>
-   <!-- Core theme JS-->
-       <script src="js/scripts.js"></script>
-       
-   </body>
+												  <li><a href="#" style="font-size: 16px"><%=session.getAttribute("id")%> 님 안녕하세요.</a></li>
+												  <li class="active"><a href="updateMember.jsp"><span>Modify</span></a></li>
+												  <li><a href="logout.jsp"><span>LogOut</span></a></li>
+												  <li><a href="game.jsp"><span>Game Start</span></a></li>
+												  <li><a href="voteResult.jsp"><span>Record</span></a></li>
 
+<!-- 비 로그인 상태 -->
+<%
+  } else {
+%>
+												  <li class="active"><a href="login.jsp"><span>LogIn</span></a></li>
+												  <li><a href="voteResult.jsp"><span>Record</span></a></li>
+												  <li><a href="join.jsp"><span>Join</span></a></li>
+<%
+  }
+%>
+						             </ul>
+						           </div>
+						         </div>
+						       </div>
+						     </div>
+						   </nav>
+    
+    <div id="colorlib-page">
+      <header>
+      	<div class="container">
+	        <div class="colorlib-navbar-brand">
+	          <a class="colorlib-logo" href="index.jsp">MINI PROJECT</a>
+	        </div>
+	        <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
+        </div>
+      </header>
+
+      <section class="hero-wrap js-fullheight">
+	      <div class="container-fluid px-0">
+	        <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
+	          <div class="col-md-12 ftco-animate text-center">
+	          	<div class="desc">
+	          		<span class="subheading">2021 혁신성장 청년인재 집중양성</span>
+		            <h1 style="background-image: url(images/bg_1.jpg); font-size:130px;" >Balance Game</h1>
+		            <span class="subheading-2">인공지능 개발자 양성과정</span>
+	            </div>
+	            <div>
+				    <%
+					  if (session.getAttribute("id") != null) {
+					%>
+					<a class="btn-primary btn-xl" href="game.jsp" style="text-align:center">Start</a> <%} %>
+				</div>
+	          </div>
+	        </div>
+	      </div>
+	    </section>
+	
+	  <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+		  Copyright &copy;<script>document.write(new Date().getFullYear());</script> This Balance Game is made <i class="icon-heart" aria-hidden="true"></i> by 
+		  <a href="https://lbsdatastat.tistory.com/" target="_blank">임범수</a>
+		  <a href="https://github.com/ngkim0929" target="_blank">김나경</a>
+		  <a href="https://github.com/wjs1324" target="_blank">전우민</a>
+		  <a href="https://ropering.tistory.com" target="_blank">오명균</a>
+	  </p>
+     </div>
+   </div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/jquery.stellar.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/aos.js"></script>
+    <script src="js/jquery.animateNumber.min.js"></script>
+    <script src="js/scrollax.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+    <script src="js/google-map.js"></script>
+    <script src="js/main.js"></script>
+    
+  </body>
 </html>

@@ -1,32 +1,8 @@
 <%@ page contentType="text/html; charset=utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
-
-<html>
-	<head>
-		<script type="text/javascript">
-			function checkForm() {
-				if (!document.updateMember.pw.value) {
-			 		alert("새 비밀번호를 입력하세요.");
-					return false;
-				}
-				if (!document.updateMember.pw_confirm.value) {
-					alert("새 비밀번호 재확인을 입력하세요.");
-					return false;
-				}
-				if (document.updateMember.pw.value != document.updateMember.pw_confirm.value) {
-					alert("비밀번호를 동일하게 입력하세요.");
-					return false;
-				}
-			}
-			function goCheckDelete() {
-				window.open("checkDelete.jsp", "_blank", "width=300, height=160, resizable =no, scrollbars=no");
-			}
-		</script>
-
-
-
-<title>회원 정보 수정</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>로그인 화면</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -53,32 +29,32 @@
 <!--===============================================================================================-->
 </head>
 <body>
-	<div class="limiter">
-		<div class="container-login100">
-			<div class="wrap-login100 p-b-160 p-t-50">
-				<form name="updateMember" action="processUpdateMember.jsp" method="post" onsubmit="return checkForm()" class="login100-form validate-form">
+		<div class="limiter">
+			<div class="container-login100">
+				<div class="wrap-login100 p-b-160 p-t-50">
+					<form name="oldMember" action="processLogin.jsp" method="post" class="login100-form validate-form">
 						<span class="login100-form-title p-b-43">
-							회원 정보 수정
+							로그인
 						</span>
 						
 						<div class="wrap-input100 rs1 validate-input" data-validate = "Username is required">
-							<input class="input100" type="password" name="pw" value="<c:out value='${row.pw}'/>">
-							<span class="label-input100">새 비밀번호</span>
+							<input class="input100" type="text" name="myid">
+							<span class="label-input100">Id</span>
 						</div>
 						
 						
 						<div class="wrap-input100 rs2 validate-input" data-validate="Password is required">
-							<input class="input100" type="password" name="pw_confirm">
-							<span class="label-input100">새 비밀번호 재확인</span>
+							<input class="input100" type="password" name="mypw">
+							<span class="label-input100">Password</span>
 						</div>
 
 						<div class="container-login100-form-btn">
-							<input class="login100-form-btn" type="submit" value="수정">
+							<input class="login100-form-btn" type="submit" value="로그인">
 						</div>
 						
-						<div class="text-center w-full p-t-23" style="color:white;">
-							<a onclick="goCheckDelete()" class="txt1">
-								회원 탈퇴
+						<div class="text-center w-full p-t-23">
+							<a href="join.jsp" class="txt1">
+								회원 가입
 							</a>
 						</div>
 					</form>
