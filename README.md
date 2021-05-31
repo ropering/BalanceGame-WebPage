@@ -2,7 +2,7 @@
 
 사용 언어 : Java, JSP, Html, CSS, JavaScript, SQL
 
-사용 프로그램 : Eclipse, Visual Studio Code, MySQL
+사용 툴 : Eclipse, Visual Studio Code, MySQL
 
 개발 기간 : 21.05.26 - 21.05.31
 
