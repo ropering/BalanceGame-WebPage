@@ -6,6 +6,10 @@
 
 개발 기간 : 21.05.26 - 21.05.31
 
+사용 환경 : 
+- Apache Tomcat 8.5 Server
+- Port Number : 8081
+
 <br>
 Features 
 
